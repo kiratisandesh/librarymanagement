@@ -1,0 +1,13 @@
+<!-- Create templates/library/add_review.html -->
+{% extends 'library/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Review: {{ book.name }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Submit Review</button>
+        <a href="{% url 'book_detail' book.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Browse Books</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .star-rating { color: #ffc107; }
+        .book-card { transition: transform 0.2s; }
+        .book-card:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+{% include "library/navbar.html" %}
+
+<div class="container mt-4">
+    <h2 class="mb-4">📚 Browse Available Books</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <div class="row">
+        {% for book in books %}
+        <div class="col-md-4 mb-4">
+            <div class="card book-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">by {{ book.author }}</h6>
+                    
+                    <div class="star-rating mb-2">
+                        {% if book.average_rating > 0 %}
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= book.average_rating %}
+                                    ⭐
+                                {% else %}
+                                    ☆
+                                {% endif %}
+                            {% endfor %}
+                            <small class="text-muted">({{ book.review_count }} reviews)</small>
+                        {% else %}
+                            <small class="text-muted">No reviews yet</small>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="mb-1"><strong>Category:</strong> {{ book.category }}</p>
+                    <p class="mb-3"><strong>Available:</strong> {{ book.available_copies }} copies</p>
+                    
+                    <a href="{% url 'student_book_detail' book.id %}" class="btn btn-info btn-sm mr-2">
+                        View Details
+                    </a>
+                    <a href="{% url 'student_request_book' book.id %}" class="btn btn-success btn-sm">
+                        Borrow Now
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No books available at the moment.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "library/footer.html" %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

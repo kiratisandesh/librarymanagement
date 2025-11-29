@@ -1,0 +1,44 @@
+<!-- Create templates/library/book_detail.html -->
+{% extends 'library/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{ book.name }}</h2>
+            <p class="lead">by {{ book.author }}</p>
+            <div class="mb-3">
+                <span class="text-warning">
+                    Rating: {{ avg_rating }}/5 ⭐ ({{ review_count }} reviews)
+                </span>
+            </div>
+            <p><strong>Category:</strong> {{ book.category }}</p>
+            <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+            <p><strong>Available Copies:</strong> {{ book.available_copies }}</p>
+            
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_review' book.id %}" class="btn btn-primary">
+                    {% if user_review %}Edit Your Review{% else %}Write a Review{% endif %}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <hr class="my-4">
+    
+    <h3>Reviews</h3>
+    {% for review in reviews %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ review.user.username }} 
+                <span class="text-warning">{{ review.rating }}⭐</span>
+            </h5>
+            <p class="card-text">{{ review.review_text }}</p>
+            <small class="text-muted">{{ review.created_at|date:"M d, Y" }}</small>
+        </div>
+    </div>
+    {% empty %}
+    <p>No reviews yet. Be the first to review!</p>
+    {% endfor %}
+</div>
+{% endblock %}
+

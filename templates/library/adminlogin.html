@@ -101,6 +101,13 @@
     <div class="signup-form">
         <form  method="post" class="form-horizontal">
 
+            <!-- CRITICAL FIX: Display the error message passed from views.py -->
+            {% if error_message %}
+                <div style="color: white; background-color: #dc3545; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-weight: bold;">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+
     			<center><h2>Admin Login</h2></center>
 
           {% csrf_token %}
@@ -112,6 +119,16 @@
                </div>
             </div>
             {% endfor %}
+            
+            {% comment %} Display Django's default non-field errors if they exist {% endcomment %}
+            {% if form.non_field_errors %}
+                <div style="color: white; background-color: #ffc107; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-weight: bold;">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
 
     		<div class="form-group">
     			<div class="col-xs-8 col-xs-offset-4">

@@ -11,40 +11,49 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-
-
 <style type="text/css">
     .bs-example{
         margin: 0px;
-
     }
-.navbar-brand{
-  font-size: 20px;
-  font-family: sans-serif;
+    .navbar-brand{
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+    .col-lg-6{
+        padding-left: 20%;
+    }
+    .jumbotron{
+        margin-bottom: 0px;
+    }
+    .search-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 60px 0;
+        color: white;
+    }
+    .search-box {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .book-card {
+        transition: transform 0.2s;
+        margin-bottom: 30px;
+    }
+    .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .star-rating {
+        color: #ffc107;
+    }
 
-}
-.col-lg-6{
-  padding-left: 20%;
-}
-.jumbotron{
-  margin-bottom: 0px;
-}
+    .button {height: 250px;
+    width: 500px;}
 
 </style>
 </head>
 <body>
 
-
-
-
 {% include "library/navbar.html" %}
-
-
-
-
-
-
-
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -73,13 +82,83 @@
   </a>
 </div>
 
+<!-- Search Section -->
+<div class="search-section">
+    <div class="container">
+        <h2 class="text-center mb-4">🔍 Explore Our Book Collection</h2>
+        <div class="search-box">
+            <form method="GET" action="/">
+                <div class="input-group input-group-lg">
+                    <input type="text" 
+                           class="form-control" 
+                           name="search" 
+                           placeholder="Search by book name, author, or category..." 
+                           value="{{ search_query }}">
+                    <div class="input-group-append">
+                        <!-- <button class="btn btn-light" type="submit">
+                            <i class="fa fa-search"></i> Search
+                        </button> -->
+                    </div>
+                </div>
+            </form>
+            {% if search_query %}
+            <div class="text-center mt-3">
+                <a href="/" class="btn btn-outline-light btn-sm">Clear Search</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
-
-
-
-
-
-
+<!-- Book Display Section -->
+<div class="container mt-5 mb-5">
+    {% if search_query %}
+        <h3 class="mb-4">Search Results for "{{ search_query }}"</h3>
+    {% else %}
+        <h3 class="mb-4">Available Books</h3>
+    {% endif %}
+    
+    <div class="row">
+        {% for book in books %}
+        <div class="col-md-4 col-lg-3">
+            <div class="card book-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>
+                    
+                    <div class="star-rating mb-2">
+                        {% if book.average_rating > 0 %}
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= book.average_rating %}⭐{% else %}☆{% endif %}
+                            {% endfor %}
+                            <small class="text-muted">({{ book.review_count }})</small>
+                        {% else %}
+                            <small class="text-muted">No reviews</small>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="mb-1"><small><strong>Category:</strong> {{ book.category }}</small></p>
+                    <p class="mb-3"><small><strong>Available:</strong> {{ book.available_copies }} copies</small></p>
+                    
+                    <a href="/studentlogin" class="btn btn-primary btn-sm btn-block">
+                        Login to Borrow
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                {% if search_query %}
+                    No books found matching "{{ search_query }}". Try a different search term.
+                {% else %}
+                    No books available at the moment.
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 <div class="jumbotron">
   <h1 style="text-align:center" class="display-4">Hello, Reader!</h1>
@@ -88,11 +167,9 @@
   <hr class="my-4">
 
   <div class="row">
-
     <div class="col-lg-6">
       <img src="{% static "images/Admin-icon.png" %}" width="50%" height="50%" alt=""><br><br>
         <a class="btn btn-primary btn-lg" style="text-align:center" href="/adminclick" role="button">Admin</a>
-
     </div>
 
     <div class="col-lg-6">
@@ -101,17 +178,9 @@
     </div>
   </div>
 <hr class="my-4">
-
 </div>
 
-
-
-
-
-
-
 {% include "library/footer.html" %}
-
 
 </body>
 </html>

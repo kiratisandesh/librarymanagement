@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'library',
+    'library.apps.LibraryConfig', 
 ]
 
 MIDDLEWARE = [
@@ -128,8 +128,8 @@ LOGIN_REDIRECT_URL='/afterlogin'
 
 #for email
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'sm@gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sumitproject1503@gmail.com'
-EMAIL_HOST_PASSWORD = 'sumityoyo'
+EMAIL_HOST_USER = 'sm@gmail.com'
+EMAIL_HOST_PASSWORD = 'sumityoyo1'

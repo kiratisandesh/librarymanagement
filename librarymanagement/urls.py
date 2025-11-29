@@ -41,7 +41,7 @@ urlpatterns = [
     path('afterlogin', views.afterlogin_view),
 
     path('addbook', views.addbook_view),
-    path('viewbook', views.viewbook_view),
+    path('viewbook', views.viewbook_view, name='viewbook'),
     path('issuebook', views.issuebook_view),
     path('viewissuedbook', views.viewissuedbook_view),
     path('viewstudent', views.viewstudent_view),
@@ -49,5 +49,17 @@ urlpatterns = [
 
     path('aboutus', views.aboutus_view),
     path('contactus', views.contactus_view),
+
+    # Add to urlpatterns in urls.py
+    path('book/<int:book_id>/', views.book_detail_view, name='book_detail'),
+    path('book/<int:book_id>/review/', views.add_review_view, name='add_review'),
+    path('editbook/<int:book_id>/', views.editbook_view, name='editbook'),
+    path('deletebook/<int:book_id>/', views.deletebook_view, name='deletebook'),
+
+    path('student/books/', views.student_browse_books_view, name='student_browse_books'),
+    path('student/book/<int:book_id>/', views.student_book_detail_view, name='student_book_detail'),
+    path('student/request/<int:book_id>/', views.student_request_book_view, name='student_request_book'),
+    path('book/<int:book_id>/review/', views.add_review_view, name='add_review'),
+        
 
 ]
