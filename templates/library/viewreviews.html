@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Manage Reviews</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .star-rating { color: #ffc107; }
+        .review-card { border-left: 4px solid #007bff; }
+    </style>
+</head>
+<body>
+{% include "library/navbar.html" %}
+
+<div class="container mt-4">
+    <h2 class="mb-4">📝 Manage Reviews</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="mb-0"><strong>Total Reviews:</strong> {{ reviews.count }}</p>
+        </div>
+    </div>
+    
+    {% for review in reviews %}
+    <div class="card review-card mb-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="card-title">
+                        📚 {{ review.book.name }}
+                        <span class="star-rating ml-2">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= review.rating %}⭐{% else %}☆{% endif %}
+                            {% endfor %}
+                        </span>
+                    </h5>
+                    <h6 class="text-muted">by {{ review.book.author }}</h6>
+                    <p class="mb-2"><strong>Reviewer:</strong> {{ review.user.first_name|default:review.user.username }} ({{ review.user.username }})</p>
+                    <p class="card-text mt-2">{{ review.review_text|default:"No written review" }}</p>
+                    <small class="text-muted">Posted on: {{ review.created_at|date:"F d, Y at h:i A" }}</small>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="{% url 'deletereview' review.id %}" class="btn btn-danger">
+                        🗑️ Delete Review
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-info">
+        No reviews have been submitted yet.
+    </div>
+    {% endfor %}
+    
+    <a href="/afterlogin" class="btn btn-secondary mt-3">← Back to Dashboard</a>
+</div>
+
+{% include "library/footer.html" %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

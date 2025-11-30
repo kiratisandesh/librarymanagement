@@ -61,5 +61,6 @@ urlpatterns = [
     path('student/request/<int:book_id>/', views.student_request_book_view, name='student_request_book'),
     path('book/<int:book_id>/review/', views.add_review_view, name='add_review'),
         
-
+    path('viewreviews', views.viewreviews_view, name='viewreviews'),
+    path('deletereview/<int:review_id>/', views.deletereview_view, name='deletereview'),
 ]

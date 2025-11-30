@@ -429,6 +429,26 @@ def viewstudent_view(request):
     students=models.StudentExtra.objects.all()
     return render(request,'library/viewstudent.html',{'students':students})
 
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def viewreviews_view(request):
+    reviews = models.Review.objects.all().order_by('-created_at')
+    return render(request, 'library/viewreviews.html', {'reviews': reviews})
+
+
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def deletereview_view(request, review_id):
+    review = get_object_or_404(models.Review, id=review_id)
+    
+    if request.method == 'POST':
+        book_name = review.book.name
+        review.delete()
+        messages.success(request, f'Review for "{book_name}" deleted successfully!')
+        return redirect('viewreviews')
+    
+    return render(request, 'library/deletereview.html', {'review': review})
+
 
 @login_required(login_url='studentlogin')
 def viewissuedbookbystudent(request):
