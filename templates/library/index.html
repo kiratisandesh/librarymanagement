@@ -12,6 +12,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+    body {
+        padding-top: 70px; /* Add padding for fixed navbar */
+    }
+    
     .bs-example{
         margin: 0px;
     }
@@ -45,10 +49,6 @@
     .star-rating {
         color: #ffc107;
     }
-
-    .button {height: 250px;
-    width: 500px;}
-
 </style>
 </head>
 <body>
@@ -95,9 +95,9 @@
                            placeholder="Search by book name, author, or category..." 
                            value="{{ search_query }}">
                     <div class="input-group-append">
-                        <!-- <button class="btn btn-light" type="submit">
+                        <button class="btn btn-light" type="submit">
                             <i class="fa fa-search"></i> Search
-                        </button> -->
+                        </button>
                     </div>
                 </div>
             </form>
@@ -140,9 +140,15 @@
                     <p class="mb-1"><small><strong>Category:</strong> {{ book.category }}</small></p>
                     <p class="mb-3"><small><strong>Available:</strong> {{ book.available_copies }} copies</small></p>
                     
-                    <a href="/studentlogin" class="btn btn-primary btn-sm btn-block">
-                        Login to Borrow
-                    </a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'student_book_detail' book.id %}" class="btn btn-primary btn-sm btn-block">
+                            View Details
+                        </a>
+                    {% else %}
+                        <a href="/login" class="btn btn-primary btn-sm btn-block">
+                            Login to Borrow
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -160,24 +166,20 @@
     </div>
 </div>
 
+<!-- About Section -->
 <div class="jumbotron">
   <h1 style="text-align:center" class="display-4">Hello, Reader!</h1>
-  <p class="lead">A service dedicated to Admin and Student. We provide online resources, professional support
+  <p class="lead">A service dedicated to readers and learners. We provide online resources, professional support
     and guidance to all our students whenever, and from wherever they have chosen to study.</p>
   <hr class="my-4">
-
-  <div class="row">
-    <div class="col-lg-6">
-      <img src="{% static "images/Admin-icon.png" %}" width="50%" height="50%" alt=""><br><br>
-        <a class="btn btn-primary btn-lg" style="text-align:center" href="/adminclick" role="button">Admin</a>
-    </div>
-
-    <div class="col-lg-6">
-      <img src="{% static "images/student.png" %}" width="50%" height="50%" alt=""><br><br>
-      <a class="btn btn-primary btn-lg" href="/studentclick" role="button">Student</a>
-    </div>
+  
+  <div class="text-center">
+    {% if not user.is_authenticated %}
+      <a class="btn btn-primary btn-lg" href="/login" role="button">Login to Get Started</a>
+    {% else %}
+      <a class="btn btn-primary btn-lg" href="/afterlogin" role="button">Go to Dashboard</a>
+    {% endif %}
   </div>
-<hr class="my-4">
 </div>
 
 {% include "library/footer.html" %}

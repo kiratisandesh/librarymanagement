@@ -5,6 +5,10 @@ import librarymanagement.fix_utc
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import psycopg2.extensions
+
+# Disable Django UTC assertion for Postgres connections
+psycopg2.extensions.UTC = None
 
 
 
@@ -129,7 +133,8 @@ LOGIN_REDIRECT_URL='/afterlogin'
 
 
 #for email
-EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'sm@gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587

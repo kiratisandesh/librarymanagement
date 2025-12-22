@@ -68,12 +68,11 @@ class IssuedBook(models.Model):
     statuschoice= [
         ('Issued', 'Issued'),
         ('Returned', 'Returned'),
-        ]
+    ]
     status=models.CharField(max_length=20,choices=statuschoice,default="Issued")
+    
     def __str__(self):
         return self.enrollment
-    
-
 
 class Review(models.Model):  # Correct
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews')

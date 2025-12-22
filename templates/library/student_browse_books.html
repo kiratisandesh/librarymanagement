@@ -6,14 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Browse Books</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            margin-bottom: 200px;
+        }
         .star-rating { color: #ffc107; }
         .book-card { transition: transform 0.2s; }
         .book-card:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
-{% include "library/navbar.html" %}
+{% include "library/navbarstudent.html" %}
 
 <div class="container mt-4">
     <h2 class="mb-4">📚 Browse Available Books</h2>

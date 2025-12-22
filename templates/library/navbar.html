@@ -4,24 +4,22 @@
 <head>
 <meta charset="utf-8">
 
-
 <style type="text/css">
     .bs-example{
         margin: 0px;
-
     }
-.navbar-brand{
-  font-size: 20px;
-  font-family: sans-serif;
-
-}
-
-
+    .navbar-brand{
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+    
+    /* Fix for content being covered by fixed navbar */
+    body {
+        padding-top: 70px; /* Adjust this value based on your navbar height */
+    }
 </style>
 </head>
 <body>
-
-
 
 <div class="bs-example">
     <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
@@ -33,23 +31,20 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <div class="navbar-nav">
                 <a href="/" class="nav-item nav-link active">Home</a>
-                <a href="/adminclick" class="nav-item nav-link">Admin</a>
-                <a href="/studentclick" class="nav-item nav-link">Student</a>
-
             </div>
 
             <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <a href="/logout" class="nav-item nav-link">LOGOUT</a>
+                {% else %}
+                    <a href="/login" class="nav-item nav-link">LOGIN</a>
+                {% endif %}
                 <a href="/aboutus" class="nav-item nav-link">About Us</a>
-                <a href="contactus" class="nav-item nav-link">Contact Us</a>
+                <a href="/contactus" class="nav-item nav-link">Contact Us</a>
             </div>
-
-
-
-
         </div>
     </nav>
 </div>
-
 
 </body>
 </html>

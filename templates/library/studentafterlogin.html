@@ -2,6 +2,19 @@
 <html lang="en" dir="ltr">
   <head>
 <style media="screen">
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f1f3f6; 
+}
+
+
+.page-wrapper {
+  min-height: 100vh;
+  padding-bottom: 90px; 
+  background-color: #f1f3f6;
+}
 .btn-circle.btn-xl {
   width: 70px;
   height: 70px;
@@ -34,8 +47,8 @@
   </head>
   <body>
     {% include "library/navbarstudent.html" %}
-    <br>
-    <br>
+    <div class="page-wrapper">
+    <br><br>
     <center><h3 style=" margin-bottom: 0px;"class = 'alert alert-success'>Welcome to Online library !</h3></center>
     <div class="jumbotron"   style="    margin-bottom: 0px;">
     <h1 class="display-4">Hello {{user.first_name}} !</h1>
@@ -44,14 +57,15 @@
     <hr class="my-4">
     <p>Option Available For You</p>
     <div class="options" style="text-align:center">
-      <a class="btn btn-primary btn-lg" href="{% url 'student_browse_books' %}" role="button">
-        Browse & Borrow Books
-      </a>
+      <a class="btn btn-primary btn-lg" href="{% url 'student_browse_books' %}">
+  Browse & Borrow Books
+</a>
+
       <a href="viewissuedbookbystudent" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View issued book to you</a><br><br>
         </div>
 
     </div>
-
+</div>
 
     {% include "library/footer.html" %}
   </body>

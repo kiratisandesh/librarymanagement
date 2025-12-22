@@ -240,6 +240,28 @@ def studentsignup_view(request):
     return render(request,'library/studentsignup.html',context=mydict)
 
 
+def unified_login_view(request):
+    """
+    Single login view that automatically redirects based on user type
+    """
+    if request.user.is_authenticated:
+        return redirect('afterlogin')
+    
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = auth.authenticate(username=username, password=password)
+        
+        if user is not None:
+            auth.login(request, user)
+            return redirect('afterlogin')
+        else:
+            error_msg = 'Invalid username or password.'
+            return render(request, 'library/unified_login.html', {'error_message': error_msg})
+    
+    return render(request, 'library/unified_login.html')
+
 def is_admin(user):
     return user.is_active and (user.is_superuser or user.is_staff)
 

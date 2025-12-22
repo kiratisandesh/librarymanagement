@@ -1,79 +1,83 @@
-<!DOCTYPE html>
-<html>
-<head>
-
-
-
-<style>
-
-/*---------------------------------------
-   Social section
------------------------------------------*/
-footer {
-    padding: 0px 0px 0px 0px;
-    background-color:black;
-    margin:0px;
-}
-.fa {
-  padding: 20px;
-  font-size: 23px;
-  width: 60px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 2px;
-  border-radius: 50%;
-}
-
-.fa:hover {
-    opacity: 0.5;
-    text-decoration: none;
-}
-
-.fa-facebook {
-  background: #3B5998;
-  color: white;
-margin-top: 30px;
-}
-.fa-whatsapp {
-  background: #25d366;
-  color: white;
-}
-.fa-twitter {
-  background: #55ACEE;
-  color: white;
-}
-.fa-instagram {
-  background: #125688;
-  color: white;
-}
-
-p{text-align:center;
-
-}
-
-</style>
-</head>
-
-<footer>
-
-  <p>
-  <a href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a>
-  <a href="https://api.whatsapp.com/send?phone=919572181024&text=Hello%20Sumit.%0d%0aHow%20are%20you%20%3f%0d%0aI%20came%20from%20your%20website.&source=&data=#" class="fa fa-whatsapp"></a>
-  <a href="https://instagram.com/sumit.luv" class="fa fa-instagram"></a>
-  <a href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a>
-  </p>
-
-<br>
-  <div class="container">
-    <div class="row">
-               <div class="col-md-12 col-sm-12">
-                    <div style="color:#ffffff;"class="wow fadeInUp footer-copyright">
-                         <p>Made in India <br>
-                         Copyright &copy;   2020  LazyCoder </p>
-                    </div>
-               </div>
+<footer class="footer mt-auto py-3 bg-dark">
+    <div class="container text-center">
+        <div class="social-icons mb-3">
+            <a href="#" class="social-link" aria-label="Facebook">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="WhatsApp">
+                <i class="fa fa-whatsapp"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Instagram">
+                <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="social-link" aria-label="Twitter">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </div>
+        <p class="text-white mb-1">Made in India</p>
+        <p class="text-white mb-0">Copyright © 2020 LazyCoder</p>
     </div>
-  </div>
 </footer>
 
-</html>
+<style>
+    html {
+        position: relative;
+        min-height: 100%;
+    }
+    
+    body {
+        margin-bottom: 200px; /* Height of footer + some padding */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: #000 !important;
+    }
+    
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .social-link {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        text-decoration: none;
+        transition: transform 0.3s;
+    }
+    
+    .social-link:hover {
+        transform: scale(1.1);
+    }
+    
+    .social-link:nth-child(1) {
+        background-color: #3b5998;
+        color: white;
+    }
+    
+    .social-link:nth-child(2) {
+        background-color: #25D366;
+        color: white;
+    }
+    
+    .social-link:nth-child(3) {
+        background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+        color: white;
+    }
+    
+    .social-link:nth-child(4) {
+        background-color: #1DA1F2;
+        color: white;
+    }
+</style>
